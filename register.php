@@ -31,13 +31,18 @@ password varchar(15)
 
 mysql_query($sql,$connection);
 
-if (!$_POST[registername] == '' || !$_POST[registerpassword] == '')
+if ($_POST[registername] == '' || $_POST[registerpassword] == '')
+{
+	echo "Registration Unsuccessful<br />";
+}
+else
 {
 	$sql="INSERT INTO logininfo (loginname, password) VALUES ('$_POST[registername]','$_POST[registerpassword]')";
+	echo "Registration Successful<br />";
 }
 
-mysql_query("DELETE FROM logininfo WHERE loginname=''");
-mysql_query("DELETE FROM logininfo WHERE password=''");
+#mysql_query("DELETE FROM logininfo WHERE loginname=''");
+#mysql_query("DELETE FROM logininfo WHERE password=''");
 
 if (!mysql_query($sql,$connection))
 	{
