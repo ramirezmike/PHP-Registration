@@ -7,42 +7,18 @@ if (!$connection)
 	{
 	die( mysql_error());
 	}
-if (!mysql_select_db("db_users", $connection))
-	{
-	mysql_query("CREATE DATABASE db_users", $connection);
-	echo "Database created";
-	}
-else
-	{
-	echo  mysql_error();
-	}
 
 mysql_select_db("db_users", $connection);
-$tables=mysql_query("SHOW TABLES IN db_users");
-echo($tablerows[pass]);
-while ($rows=mysql_fetch_array($tables)){
-	echo $row['loginname'];
-}
-	$sql = "CREATE TABLE IF NOT EXISTS logininfo
-(
-loginname varchar(15),
-password varchar(15)
-)";
 
-mysql_query($sql,$connection);
+$loginRow=mysql_query("SELECT * FROM logininfo WHERE loginname='$_POST[loginname]'");
+$nameForCheck=mysql_fetch_array($loginRow);
+echo $nameForCheck['loginname'];
+echo $nameForCheck['password'];
+echo $_POST["loginname"];
+echo $_POST["password"];
 
-if (!$_POST[registername] == '' || !$_POST[registerpassword] == '')
-{
-	$sql="INSERT INTO logininfo (loginname, password) VALUES ('$_POST[registername]','$_POST[registerpassword]')";
-}
+if ($nameForCheck['password'] == $_POST['password']) {
 
-mysql_query("DELETE FROM logininfo WHERE loginname=''");
-mysql_query("DELETE FROM logininfo WHERE password=''");
-
-if (!mysql_query($sql,$connection))
-	{
-	die('Error: ' . mysql_error());
-	}
 $result = mysql_query('SELECT * FROM logininfo',$connection); 
 $rownumbers = mysql_num_rows($result);
 
@@ -71,6 +47,16 @@ else
 	echo "Login not found";
 	}
 
+}
+
+else {
+	echo "Login Unsuccesful";
+}
+if ($_POST['loginname'] == 'admin')
+{
+echo "<br />";
+echo "Logged in as Admin";
+}
 mysql_close($connection);
 ?>
 </body>
