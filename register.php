@@ -1,6 +1,8 @@
 <html>
 <body>
 
+<a href="index.php">Index</a></br>
+
 <?php
 $connection = mysql_connect("localhost","root");
 if (!$connection)
@@ -25,8 +27,11 @@ while ($rows=mysql_fetch_array($tables)){
 }
 	$sql = "CREATE TABLE IF NOT EXISTS logininfo
 (
-loginname varchar(15),
-password varchar(15)
+userID INT(3) NOT NULL AUTO_INCREMENT,
+loginname varchar(15) NOT NULL,
+password varchar(15) NOT NULL,
+PRIMARY KEY (userID),
+UNIQUE KEY (loginname)
 )";
 
 mysql_query($sql,$connection);
@@ -41,41 +46,11 @@ else
 	echo "Registration Successful<br />";
 }
 
-#mysql_query("DELETE FROM logininfo WHERE loginname=''");
-#mysql_query("DELETE FROM logininfo WHERE password=''");
 
 if (!mysql_query($sql,$connection))
 	{
 	die('Error: ' . mysql_error());
 	}
-$result = mysql_query('SELECT * FROM logininfo',$connection); 
-$rownumbers = mysql_num_rows($result);
-
-echo '<div id="table" style="float:left;">';
-echo "<table border='1'>
-<tr>
-<th>LoginName</th>
-<th>Password</th>
-</tr>";
-if ($rownumbers)
-	{
-	echo "Login found";
-	echo "$rownumbers Rows\n";
-	while ($row = mysql_fetch_array($result))
-	{
-	echo "<tr>";
-	echo "<td>" . $row['loginname'] . "</td>";	
-	echo "<td>" . $row['password'] . "</td>";	
-	echo "</tr>";
-	}
-	echo "</table>";
-	echo "</div>";
-	}
-else
-	{
-	echo "Login not found";
-	}
-
 mysql_close($connection);
 ?>
 </body>

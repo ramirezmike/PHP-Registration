@@ -1,6 +1,8 @@
 <html>
 <body>
 
+<a href="index.php">Index</a></br>
+
 <?php
 $connection = mysql_connect("localhost","root");
 if (!$connection)
