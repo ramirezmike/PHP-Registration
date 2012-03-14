@@ -43,14 +43,15 @@ if ($_POST[registername] == '' || $_POST[registerpassword] == '')
 else
 {
 	$sql="INSERT INTO logininfo (loginname, password) VALUES ('$_POST[registername]','$_POST[registerpassword]')";
-	echo "Registration Successful<br />";
-}
-
-
-if (!mysql_query($sql,$connection))
-	{
-	die('Error: ' . mysql_error());
+		
+	if (!mysql_query($sql,$connection)) {
+		die('Error: ' . mysql_error());
 	}
+
+	else {
+		echo "Registration Successful<br />";
+	}
+}
 mysql_close($connection);
 ?>
 </body>
