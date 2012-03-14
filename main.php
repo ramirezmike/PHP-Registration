@@ -5,8 +5,8 @@
 
 <?php
 
-function hash($input) {
-	return str_rot13(base64_encode(hash('sha512', $input)));
+function myHash($input) {
+	return hash('sha512', $input);
 }
 
 function unhash($input) {
@@ -28,8 +28,7 @@ mysql_query("DELETE FROM logininfo WHERE userID='$_POST[deleteuser]'");
 
 $loginRow=mysql_query("SELECT * FROM logininfo WHERE loginname='$_POST[loginname]'");
 $nameForCheck=mysql_fetch_array($loginRow);
-
-if ($nameForCheck['password'] == $_POST['password']) {
+if ($nameForCheck['password'] == myHash($_POST['password'])) {
 
 $result = mysql_query('SELECT * FROM logininfo',$connection); 
 $rownumbers = mysql_num_rows($result);
@@ -81,7 +80,7 @@ else if ($rownumbers )
 	echo "<tr>";
 	echo "<td>" . $row['userID'] . "</td>";
 	echo "<td>" . $row['loginname'] . "</td>";	
-	if ($row['password'] == $_POST['password']) {
+	if ($row['password'] == myHash($_POST['password'])) {
 		echo "<td>" . $row['password'] . "</td>";	
 	}
 	echo "</tr>";

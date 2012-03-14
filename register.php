@@ -4,6 +4,16 @@
 <a href="index.php">Index</a></br>
 
 <?php
+function myHash($input)
+{
+	return hash('sha512', $input);
+}
+
+function dehash($input)
+{
+	return str_rot13(base64_decode($input));
+}
+
 $connection = mysql_connect("localhost","root");
 if (!$connection)
 	{
@@ -29,7 +39,7 @@ while ($rows=mysql_fetch_array($tables)){
 (
 userID INT(3) NOT NULL AUTO_INCREMENT,
 loginname varchar(15) NOT NULL,
-password varchar(15) NOT NULL,
+password varchar(128) NOT NULL,
 PRIMARY KEY (userID),
 UNIQUE KEY (loginname)
 )";
@@ -42,7 +52,8 @@ if ($_POST[registername] == '' || $_POST[registerpassword] == '')
 }
 else
 {
-	$sql="INSERT INTO logininfo (loginname, password) VALUES ('$_POST[registername]','$_POST[registerpassword]')";
+	$password = myHash($_POST[registerpassword]);
+	$sql="INSERT INTO logininfo (loginname, password) VALUES ('$_POST[registername]','$password')";
 		
 	if (!mysql_query($sql,$connection)) {
 		die('Error: ' . mysql_error());
