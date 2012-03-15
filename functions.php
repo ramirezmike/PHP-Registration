@@ -23,4 +23,10 @@ function register($name,$pass,$connection)
 		echo "Registration Successful<br />";
 	}
 }
+
+function delete($user)
+{
+	mysql_query("DELETE FROM logininfo WHERE userID='$user'");
+}
+
 ?>

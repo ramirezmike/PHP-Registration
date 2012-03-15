@@ -10,10 +10,11 @@ require("header.php");
 <?php
 	if(isset($_POST['Delete']))
 	{
-		if ($_POST['deleteuser'] != 1) 
-		{
-			mysql_query("DELETE FROM logininfo WHERE userID='$_POST[deleteuser]'");
-		}
+		delete($_POST['deleteuser']);
+#		if ($_POST['deleteuser'] != 1) 
+#		{
+#			mysql_query("DELETE FROM logininfo WHERE userID='$_POST[deleteuser]'");
+#		}
 	}
 
 	$adminRow=mysql_fetch_array(mysql_query("SELECT * FROM logininfo WHERE userID=1"));
