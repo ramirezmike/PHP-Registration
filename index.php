@@ -1,18 +1,36 @@
+<?php 
+session_start(); 
+session_regenerate_id();
+
+
+if (isset($_POST['login']))
+{
+	$_SESSION['loginname'] = $_POST['loginname'];
+	$_SESSION['password'] = $_POST['password'];
+	header("Location: main.php");
+}
+?>
+
 <html>
-<body>
+	<body>
 
-<form action="main.php" method="post">
-Login<br />
-Name:<br /> <input type = "text" name="loginname" /><br />
-Password:<br /> <input type = "password" name="password" /><br />
-<input type="submit" value="Enter">
-</form>
-<form action="register.php" method="post">
-Register<br />
-Name:<br /> <input type = "text" name="registername" /><br />
-Password:<br /> <input type = "password" name="registerpassword" /><br />
-<input type="submit" value="Register" />
-</form>
+		<form action="index.php" method="post">
+			Login<br />
+			Name:<br /> 
+			<input type = "text" name="loginname" /><br />
+			Password:<br /> 
+			<input type = "password" name="password" /><br />
+			<input type="submit" name="login" value="Enter">
+		</form>
 
-</body>
+		<form action="register.php" method="post">
+			Register<br />
+			Name:<br /> 
+			<input type = "text" name="registername" /><br />
+			Password:<br /> 
+			<input type = "password" name="registerpassword" /><br />
+			<input type="submit" value="Register" />
+		</form>
+
+	</body>
 </html>
