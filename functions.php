@@ -26,7 +26,38 @@ function register($name,$pass,$connection)
 
 function delete($user)
 {
-	mysql_query("DELETE FROM logininfo WHERE userID='$user'");
+	if ($user != 1)
+	{
+		mysql_query("DELETE FROM logininfo WHERE userID='$user'");
+	}
 }
 
+function show_admin_table($user)
+{
+	echo '<div id="table" style="float:left;">';
+	echo "<table border='1'>
+		<tr>
+		<th>UserID</th>
+		<th>LoginName</th>
+		<th>Password</th>
+		</tr>";
+	while ($row = mysql_fetch_array($user))
+	{
+		echo "<tr>";
+		echo "<td>" . $row['userID'] . "</td>";
+		echo "<td>" . $row['loginname'] . "</td>";
+		echo "<td>" . $row['password'] . "</td>";
+		echo "</tr>";	
+	}
+	echo "</table>			
+		</div>
+		<br />
+		<Logged in as Admin>
+		<form action='main.php' method='post'>
+		Delete by userID <br />
+		<input type='text' name='deleteuser' />
+		<br />
+		<input type='submit' name='Delete' value='Delete' />
+		</form>";
+}
 ?>
