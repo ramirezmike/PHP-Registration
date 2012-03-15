@@ -1,7 +1,5 @@
 <?php 
-session_start(); 
-session_regenerate_id();
-
+	require("header.php");
 
 if (isset($_POST['login']))
 {

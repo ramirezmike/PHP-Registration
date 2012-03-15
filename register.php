@@ -1,30 +1,14 @@
+<?php
+	require("header.php");
+?>
+
 <html>
 	<body>
 
 		<a href="index.php">Index</a></br>
 
 <?php
-	function myHash($input)
-	{
-		return hash('sha512', $input);
-	}
 
-	$connection = mysql_connect("localhost","root");
-	if (!$connection)
-	{
-		die( mysql_error());
-	}
-	if (!mysql_select_db("db_users", $connection))
-	{
-		mysql_query("CREATE DATABASE db_users", $connection);
-		echo "Database created";
-	}
-	else
-	{
-		echo  mysql_error();
-	}
-
-	mysql_select_db("db_users", $connection);
 	$tables=mysql_query("SHOW TABLES IN db_users");
 	echo($tablerows[pass]);
 	while ($rows=mysql_fetch_array($tables))

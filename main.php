@@ -1,26 +1,13 @@
-<?php 
-	session_start(); 
-	session_regenerate_id();
+<?php
+require("header.php");
 ?>
+
 <html>
 	<body>
 
 		<a href="index.php">Index</a></br>
 
 <?php
-
-	function myHash($input) 
-{
-		return hash('sha512', $input);
-}
-
-	$connection = mysql_connect("localhost","root");
-		if (!$connection)
-		{
-				die( mysql_error());
-		}
-	mysql_select_db("db_users", $connection);
-
 	if(isset($_POST['Delete']))
 	{
 		if ($_POST['deleteuser'] != 1) 
@@ -86,7 +73,7 @@
 				echo "<tr>";
 				echo "<td>" . $row['userID'] . "</td>";
 				echo "<td>" . $row['loginname'] . "</td>";	
-				if ($row['password'] == myHash($_SESSION['password'])) 
+				if ($row['loginname'] == $_SESSION['loginname'] && $row['password'] == myHash($_SESSION['password'])) 
 				{
 					echo "<td>" . $row['password'] . "</td>";	
 				}
@@ -94,10 +81,6 @@
 			}
 			echo "</table>";
 			echo "</div>";
-		}
-		else
-		{
-			echo "Login not found";
 		}
 
 	}
