@@ -4,18 +4,7 @@
 
 <html>
 	<body>
-
-		<a href="index.php">Index</a></br>
-
 <?php
-
-	$tables=mysql_query("SHOW TABLES IN db_users");
-	echo($tablerows[pass]);
-	while ($rows=mysql_fetch_array($tables))
-	{
-		echo $row['loginname'];
-	}
-
 	$sql = "CREATE TABLE IF NOT EXISTS logininfo
 		(
 		userID INT(3) NOT NULL AUTO_INCREMENT,
@@ -27,26 +16,9 @@
 
 	mysql_query($sql,$connection);
 
-	if ($_POST[registername] == '' || $_POST[registerpassword] == '')
-	{
-		echo "Registration Unsuccessful<br />";
-	}
-	else
-	{
-		$password = myHash($_POST[registerpassword]);
-		$sql="INSERT INTO logininfo (loginname, password) VALUES ('$_POST[registername]','$password')";
-			
-		if (!mysql_query($sql,$connection)) 
-		{
-			die('Error: ' . mysql_error());
-		}
-
-		else 
-		{
-			echo "Registration Successful<br />";
-		}
-	}
+	register($_POST[registername],$_POST[registerpassword],$connection);
 	mysql_close($connection);
 ?>
+		<a href="index.php">Index</a></br>
 	</body>
 </html>
