@@ -1,6 +1,10 @@
 <?php 
 	require("header.php");
 
+if(isset($_GET['logout']))
+{
+	logout();
+}
 if (isset($_POST['login']))
 {
 	$_SESSION['loginname'] = $_POST['loginname'];

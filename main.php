@@ -91,6 +91,6 @@ require("header.php");
 	}
 
 	mysql_close($connection);
+
+	require("footer.php");
 ?>
-	</body>
-</html>
