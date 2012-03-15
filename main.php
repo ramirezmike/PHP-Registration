@@ -14,11 +14,6 @@
 		return hash('sha512', $input);
 }
 
-	function unhash($input) 
-{
-		return str_rot13(base64_decode($input));
-}
-
 	$connection = mysql_connect("localhost","root");
 		if (!$connection)
 		{
