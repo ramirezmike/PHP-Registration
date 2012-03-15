@@ -21,14 +21,18 @@
 		}
 	mysql_select_db("db_users", $connection);
 
+	if(isset($_POST['Delete']))
+	{
+		if ($_POST['deleteuser'] != 1) 
+		{
+			mysql_query("DELETE FROM logininfo WHERE userID='$_POST[deleteuser]'");
+		}
+	}
+
 	$adminRow=mysql_fetch_array(mysql_query("SELECT * FROM logininfo WHERE userID=1"));
 	$loginRow=mysql_query("SELECT * FROM logininfo WHERE loginname='$_SESSION[loginname]'");
 	$nameForCheck=mysql_fetch_array($loginRow);
 
-	if (!$_POST[deleteuser] == 1) 
-	{
-		mysql_query("DELETE FROM logininfo WHERE userID='$_POST[deleteuser]'");
-	}
 
 	if ($nameForCheck['password'] == myHash($_SESSION['password'])) 
 	{
@@ -63,7 +67,7 @@
 			echo "<form action='main.php' method='post'>";
 			echo "Delete by userID <br />";
 			echo "<input type='text' name='deleteuser' /><br />";
-			echo "<input type='submit' value='Delete' />";
+			echo "<input type='submit' name='Delete' value='Delete' />";
 			echo "</form>";
 		}
 		else if ($rownumbers )
