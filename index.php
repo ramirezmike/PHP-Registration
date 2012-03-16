@@ -13,7 +13,15 @@ if (isset($_POST['login']))
 {
 	$_SESSION['loginname'] = $_POST['loginname'];
 	$_SESSION['password'] = $_POST['password'];
-	header("Location: main.php");
+	
+	if(login($connection))
+	{
+		header("Location: main.php");
+	}
+	else
+	{
+		echo "Unsuccessful login";	
+	}
 }
 ?>
 

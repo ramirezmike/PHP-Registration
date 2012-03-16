@@ -12,28 +12,16 @@ require("header.php");
 	{
 		delete($_POST['deleteuser']);
 	}
-
-	$adminRow=mysql_fetch_array(mysql_query("SELECT * FROM logininfo WHERE userID=1"));
-	$loginRow=mysql_query("SELECT * FROM logininfo WHERE loginname='$_SESSION[loginname]'");
-	$nameForCheck=mysql_fetch_array($loginRow);
-
-
-	if ($nameForCheck['password'] == myHash($_SESSION['password'])) 
+	if($_SESSION['loggedin'])
 	{
-		$result = mysql_query('SELECT * FROM logininfo',$connection); 
-		$rownumbers = mysql_num_rows($result);
-
-		if ($_SESSION['loginname'] == $adminRow['loginname'])
+		if ($_SESSION['admin'])
 		{
-			$_SESSION['loggedin'] = 1;
-			show_admin_table($result);
+			show_admin_table($_SESSION['loginname']);
 		}
-		else if ($rownumbers )
-		{
-			$_SESSION['loggedin'] = 1;
-			show_table($result);
+		else
+		{ 
+			show_table($_SESSION['loginname']);
 		}
-
 	}
 
 	else 

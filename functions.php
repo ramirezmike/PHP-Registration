@@ -4,6 +4,36 @@ function myHash($input)
 	return hash('sha512', $input);
 }
 
+function login($connection)
+{
+	$adminRow=mysql_fetch_array(mysql_query("SELECT * FROM logininfo WHERE userID=1"));
+	$loginRow=mysql_query("SELECT * FROM logininfo WHERE loginname='$_SESSION[loginname]'");
+	$nameForCheck=mysql_fetch_array($loginRow);
+
+
+	if ($nameForCheck['password'] == myHash($_SESSION['password']))
+	{
+		  $result = mysql_query('SELECT * FROM logininfo',$connection);
+		  $rownumbers = mysql_num_rows($result);
+
+		  if ($_SESSION['loginname'] == $adminRow['loginname'])
+		  {
+			  $_SESSION['loggedin'] = 1;
+			  $_SESSION['admin'] = 1;
+			  #show_admin_table($result);
+			  return 1;
+		  }
+		  else if ($rownumbers )
+		  {
+			  $_SESSION['loggedin'] = 1;
+			  #show_table($result);
+			  return 1;
+		  }
+
+	}
+	return 0;
+}
+
 function logout()
 {
 	session_destroy();
