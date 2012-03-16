@@ -23,45 +23,22 @@ require("header.php");
 		$result = mysql_query('SELECT * FROM logininfo',$connection); 
 		$rownumbers = mysql_num_rows($result);
 
-		if ($_SESSION['loginname'] == '' or $_SESSION['password'] == '')
+		if ($_SESSION['loginname'] == $adminRow['loginname'])
 		{
-			echo "Error: Blank fields";
-		}
-
-		else if ($_SESSION['loginname'] == $adminRow['loginname'])
-		{
+			$_SESSION['loggedin'] = 1;
 			show_admin_table($result);
 		}
 		else if ($rownumbers )
 		{
-			echo "Login found<br /";
-			echo '<div id="table" style="float:left;">';
-			echo "<table border='1'>
-				<tr>
-				<th>UserID</th>
-				<th>LoginName</th>
-				<th>Password</th>
-				</tr>";
-			while ($row = mysql_fetch_array($result))
-			{
-				echo "<tr>";
-				echo "<td>" . $row['userID'] . "</td>";
-				echo "<td>" . $row['loginname'] . "</td>";	
-				if ($row['loginname'] == $_SESSION['loginname'] && $row['password'] == myHash($_SESSION['password'])) 
-				{
-					echo "<td>" . $row['password'] . "</td>";	
-				}
-				echo "</tr>";
-			}
-			echo "</table>";
-			echo "</div>";
+			$_SESSION['loggedin'] = 1;
+			show_table($result);
 		}
 
 	}
 
 	else 
 	{
-		echo "Login Unsuccesful";
+		echo "Unsuccessful login";
 	}
 
 	mysql_close($connection);

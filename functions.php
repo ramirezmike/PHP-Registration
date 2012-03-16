@@ -60,4 +60,27 @@ function show_admin_table($user)
 		<input type='submit' name='Delete' value='Delete' />
 		</form>";
 }
+
+function show_table($user)
+{
+	echo "<div id='table'>
+		<table border='1'>
+			<tr>
+			<th>UserID</th>
+			<th>LoginName</th>
+			<th>Password</th>
+			</tr>";
+	while ($row = mysql_fetch_array($user))
+	{
+		echo "<tr>";
+		echo "<td>" . $row['userID'] . "</td>";
+		echo "<td>" . $row['loginname'] . "</td>";
+		if ($row['loginname'] == $_SESSION['loginname'] && $row['password'] == myHash($_SESSION['password']))
+		{
+			echo "<td>" . $row['password'] . "</td>";
+		}
+		echo "</tr>";
+	}
+	echo "</table></div>";
+}
 ?>
