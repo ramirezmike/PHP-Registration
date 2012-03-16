@@ -20,16 +20,13 @@ function login($connection)
 		  {
 			  $_SESSION['loggedin'] = 1;
 			  $_SESSION['admin'] = 1;
-			  #show_admin_table($result);
 			  return 1;
 		  }
 		  else if ($rownumbers )
 		  {
 			  $_SESSION['loggedin'] = 1;
-			  #show_table($result);
 			  return 1;
 		  }
-
 	}
 	return 0;
 }
@@ -62,8 +59,9 @@ function delete($user)
 	}
 }
 
-function show_admin_table($user)
+function show_admin_table($connection)
 {
+	$result = mysql_query('SELECT * FROM logininfo',$connection);
 	echo '<div id="table" style="float:left;">';
 	echo "<table border='1'>
 		<tr>
@@ -71,7 +69,7 @@ function show_admin_table($user)
 		<th>LoginName</th>
 		<th>Password</th>
 		</tr>";
-	while ($row = mysql_fetch_array($user))
+	while ($row = mysql_fetch_array($result))
 	{
 		echo "<tr>";
 		echo "<td>" . $row['userID'] . "</td>";
@@ -91,8 +89,9 @@ function show_admin_table($user)
 		</form>";
 }
 
-function show_table($user)
+function show_table($connection)
 {
+	$result = mysql_query('SELECT * FROM logininfo',$connection);
 	echo "<div id='table'>
 		<table border='1'>
 			<tr>
@@ -100,7 +99,7 @@ function show_table($user)
 			<th>LoginName</th>
 			<th>Password</th>
 			</tr>";
-	while ($row = mysql_fetch_array($user))
+	while ($row = mysql_fetch_array($result))
 	{
 		echo "<tr>";
 		echo "<td>" . $row['userID'] . "</td>";

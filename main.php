@@ -16,11 +16,11 @@ require("header.php");
 	{
 		if ($_SESSION['admin'])
 		{
-			show_admin_table($_SESSION['loginname']);
+			show_admin_table($connection);
 		}
 		else
 		{ 
-			show_table($_SESSION['loginname']);
+			show_table($connection);
 		}
 	}
 
