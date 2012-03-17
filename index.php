@@ -13,6 +13,7 @@ if (isset($_POST['login']))
 {
 	$_SESSION['loginname'] = $_POST['loginname'];
 	$_SESSION['password'] = $_POST['password'];
+	$_SESSION['admin'] = 0;
 	
 	if(login($connection))
 	{
